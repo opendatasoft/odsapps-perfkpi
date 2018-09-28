@@ -1,0 +1,179 @@
+<div class="perfkpi-page" ng-init="kpitheme = 'Generic'; goals = {}">
+    <!-- LOAD AND BUILD GOALS STRUCTURE
+            For each 'Theme', get 2 KPIs (1 and 2), and for each KPI get the value, the unit and the title
+            goals['Energy']['1']['value'] -> get the goal value of the first Energy KPI
+    -->
+    <ods-dataset-context context="kpigoals" kpigoals-dataset="kpi-objectifs">
+        <div ods-facet-results="themes"
+             ods-facet-results-context="kpigoals"
+             ods-facet-results-facet-name="theme"
+             ng-repeat="theme in themes">
+            {{ goals[theme.name] = {'1': {'value': 0, 'unit': '', 'title':''},'2': {'value': 0, 'unit': '', 'title':''} } ; "" }}
+        </div>
+        <div ng-repeat="item in items" ods-results="items" ods-results-context="kpigoals">
+            {{
+                    goals[item.fields.theme][item.fields.id].value = item.fields.goal ;
+                    goals[item.fields.theme][item.fields.id].unit = item.fields.unit ;
+                    goals[item.fields.theme][item.fields.id].title = item.fields.title ;
+                    ""
+                    }}
+        </div>
+    </ods-dataset-context>
+
+
+    <!--
+        Banner :
+        Change the background image URL here
+    -->
+    <div class="perfkpi-page__header"
+         style="background-image: url('/assets/theme_image/transport_bg.jpg')">
+        <div class="container">
+            <h1 class="perfkpi-page__title">KPI details</h1>
+        </div>
+    </div>
+
+    <!--
+        Navigation
+        The current/active page will be :
+            <a href="/pages/transport" class="perfkpi-page__subheader-link perfkpi-page__subheader-link--active">
+                <ods-theme-picto theme="Transport"></ods-theme-picto>
+                Generic
+            </a>
+        See the CSS class : perfkpi-page__subheader-link--active
+    -->
+    <div class="perfkpi-page__subheader">
+        <div class="container">
+            <a href="/pages/citizen" class="perfkpi-page__subheader-link">
+                <ods-theme-picto theme="Citizen"></ods-theme-picto>
+                Service aux citoyens
+            </a>
+            <a href="/pages/energy" class="perfkpi-page__subheader-link">
+                <ods-theme-picto theme="Energy"></ods-theme-picto>
+                Energie
+            </a>
+            <a href="/pages/transport" class="perfkpi-page__subheader-link">
+                <ods-theme-picto theme="Transport"></ods-theme-picto>
+                Transport
+            </a>
+            <a href="/pages/environment" class="perfkpi-page__subheader-link">
+                <ods-theme-picto theme="Environment"></ods-theme-picto>
+                Environnement
+            </a>
+        </div>
+    </div>
+
+    <!-- Content -->
+    <div class="container">
+        <ods-dataset-context context="kpigeneric,kpigenericthisyear,kpigenericlastyear"
+                             kpigeneric-dataset="kpi-generic"
+                             kpigeneric-parameters="{'sort':'date'}"
+                             kpigenericthisyear-dataset="kpi-generic"
+                             kpigenericlastyear-dataset="kpi-generic">
+
+            <!-- KPI Title and display the goal from the goals data structure from the goal dataset, cf. top of the page -->
+            <div class="perfkpi-page__subtitle-wrapper">
+                <h2 class="perfkpi-page__subtitle" id="electric-car-sharing-service">
+                    Service générique
+                </h2>
+                <div class="perfkpi-page-aside perfkpi-page-aside--inline">
+                    <div class="perfkpi-page-aside-title">
+                        <i class="fa fa-bullseye" aria-hidden="true"></i> Objectif
+                    </div>
+                    <div class="perfkpi-page-aside-content">
+                        {{ goals[kpitheme]['1'].value }} {{ goals[kpitheme]['1'].unit }} {{ goals[kpitheme]['1'].title }}
+                    </div>
+                </div>
+            </div>
+
+            <div ods-results="kpigenericresults"
+                 ods-results-context="kpigeneric"
+                 ods-results-max="1">
+                <!-- Get last date of kpigeneric -->
+                {{ kpigeneric_lastdate = kpigenericresults[0].fields.date ; "" }}
+                <!-- Compute and filter 'kpigenericthisyear' on the last month/year -->
+                {{ kpigenericthisyear.parameters['refine.date'] = (kpigeneric_lastdate | moment : 'YYYY-MM-01' | date : 'yyyy/MM') ; "" }}
+                <!-- Compute and filter 'kpigenericlastyear' on the previous year same month -->
+                {{ kpigenericlastyear.parameters['refine.date'] = (kpigeneric_lastdate | moment : 'YYYY-MM-01' | momentadd : 'years' : -1 | date : 'yyyy/MM') ; "" }}
+
+                <!-- Once both contexts are refined, start the aggregation: SUM the value for current year and past year -->
+                <div class="perfkpi-page-grid"
+                     ng-if="kpigenericthisyear.parameters['refine.date'] && kpigenericlastyear.parameters['refine.date']"
+                     ods-aggregation="thisyear,lastyear"
+                     ods-aggregation-thisyear-context="kpigenericthisyear"
+                     ods-aggregation-thisyear-function="SUM"
+                     ods-aggregation-thisyear-expression="value"
+                     ods-aggregation-lastyear-context="kpigenericlastyear"
+                     ods-aggregation-lastyear-function="SUM"
+                     ods-aggregation-lastyear-expression="value">
+
+                    <div class="perfkpi-page-row"
+                         ng-if="thisyear && lastyear">
+                        <div class="col-sm-5 perfkpi-page-col">
+                            <div class="perfkpi-card"
+                                 ng-class="{'perfkpi-card--check-green': thisyear >= {{ goals[kpitheme]['1'].value }}, 'perfkpi-card--times-red': thisyear < {{ goals[kpitheme]['1'].value }}}">
+                                <h3>
+                                    Somme {{ goals[kpitheme]['1'].title }}
+                                </h3>
+                                <p>
+                                    <span class="perfkpi-big perfkpi-bold"
+                                          ng-class="{'perfkpi-green': thisyear >= {{ goals[kpitheme]['1'].value }}, 'perfkpi-red': thisyear < {{ goals[kpitheme]['1'].value }}}">
+                                        <ods-spinner ng-hide="thisyear | isDefined"></ods-spinner>
+                                        {{ thisyear | number : 0 }}
+                                    </span>
+                                </p>
+
+                                <p class="perfkpi-small perfkpi-italic">{{ kpigeneric_lastdate | moment : 'YYYY-MM-01' | date : 'MMMM yyyy' }}</p>
+                            </div>
+                            <div class="perfkpi-card"
+                                 ng-class="{'perfkpi-card--up-green': thisyear > lastyear, 'perfkpi-card--down-red': thisyear < lastyear, 'perfkpi-card--right': thisyear == lastyear}">
+                                <h3>
+                                    Comparaison au même mois l'année passée
+                                </h3>
+                                <p>
+                                    <ods-spinner ng-hide="(lastyear|isDefined) && (thisyear|isDefined)"></ods-spinner>
+                                    <span class="perfkpi-bold"
+                                          ng-class="{'perfkpi-green': thisyear > lastyear, 'perfkpi-red': thisyear < lastyear}">{{ thisyear - lastyear |number:0}}</span> nouveaux cette année
+                                </p>
+                                <p class="perfkpi-small perfkpi-italic">
+                                    <ods-spinner ng-hide="lastyear|isDefined"></ods-spinner>
+                                    {{ lastyear | number: 0 }} en {{ kpigeneric_lastdate | moment : 'YYYY-MM-01' | momentadd : 'years' : -1 | date : 'MMMM yyyy' }}
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-7 perfkpi-page-col">
+                            <div class="perfkpi-card">
+                                <h3>
+                                    Evolution
+                                </h3>
+                                <ods-chart timescale="month" single-y-axis="true">
+                                    <ods-chart-query context="kpigeneric" field-x="date"
+                                                     series-breakdown="category" maxpoints="0"
+                                                     timescale="month">
+                                        <ods-chart-serie expression-y="value" chart-type="areaspline" function-y="AVG" color="range-custom" display-values="true" scientific-display="true">
+                                        </ods-chart-serie>
+                                    </ods-chart-query>
+                                </ods-chart>
+
+                                <!-- Get from the dataset the date facet to compute de range of date of the data -->
+                                <div class="perfkpi-small perfkpi-italic perfkpi-space-between"
+                                     ods-facet-results="items"
+                                     ods-facet-results-context="kpigeneric"
+                                     ods-facet-results-facet-name="date"
+                                     ng-init="years = {'start':0, 'end':0}">
+                                    <!-- From the facet, get the first and last item, to get the first and last year -->
+                                    {{ years.start = items[0].name ;
+                                            years.end = items[items.length-1].name ; "" }}
+
+                                    <!-- Finally, print the values -->
+                                    <span>{{ years.start }} à {{ years.end }}</span>
+                                    <a href="/explore/dataset/kpi-generic"><i class="fa fa-table" aria-hidden="true"></i> Voir les données source</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ods-dataset-context>
+    </div>
+</div>

@@ -1,0 +1,341 @@
+<div class="perfkpi-page" ng-init="myvar = {}; goals = {}">
+    <!-- LOAD AND BUILD GOALS STRUCTURE
+            For each 'Theme', get 2 KPIs (1 and 2), and for each KPI get the value, the unit and the title
+            goals['Energy']['1']['value'] -> get the goal value of the first Energy KPI
+    -->
+    <ods-dataset-context context="kpigoals" kpigoals-dataset="kpi-goals">
+        <div ods-facet-results="themes"
+             ods-facet-results-context="kpigoals"
+             ods-facet-results-facet-name="theme"
+             ng-repeat="theme in themes">
+            {{ goals[theme.name] = {'1': {'value': 0, 'unit': '', 'title':''},'2': {'value': 0, 'unit': '', 'title':''} } ; "" }}
+        </div>
+        <div ng-repeat="goalsitem in goalsitems"
+             ods-results="goalsitems"
+             ods-results-context="kpigoals">
+            {{
+                    goals[goalsitem.fields.theme][goalsitem.fields.id].value = goalsitem.fields.goal ;
+                    goals[goalsitem.fields.theme][goalsitem.fields.id].unit = goalsitem.fields.unit ;
+                    goals[goalsitem.fields.theme][goalsitem.fields.id].title = goalsitem.fields.title ;
+                    ""
+                    }}
+        </div>
+    </ods-dataset-context>
+
+
+    <div class="perfkpi-page__header">
+    </div>
+
+    <div class="container">
+        <ods-dataset-context context="kpi1lastevo,
+                                      kpi2lastevo,
+                                      kpi6lastevo,opendata,kpi9,kpi8,
+                                      kpi10solarpower,kpi10solarpowerlast"
+                             kpi10solarpowerlast-dataset="kpi-10-solarpower"
+                             kpi10solarpowerlast-parameters="{'sort':'date'}"
+                             kpi10solarpower-dataset="kpi-10-solarpower"
+                             kpi10solarpower-parameters="{'sort':'date'}"
+                             kpi9-dataset="kpi-9-train-planning"
+                             kpi9-parameters="{'sort':'date'}"
+                             kpi8-dataset="kpi-8-electric-car-sharing-service"
+                             kpi8-parameters="{'sort':'year_month'}"
+                             kpi1lastevo-dataset="kpi-1-new-green-areas"
+                             kpi2lastevo-dataset="kpi-2-waste-recycled"
+                             kpi2lastevo-parameters="{'sort':'year_month'}"
+                             kpi6lastevo-dataset="kpi-6-citizen-engagement"
+                             kpi6lastevo-parameters="{'sort':'year_month'}"
+                             opendata-dataset="open-data-ods-village"
+        >
+
+
+            <div class="perfkpi-page-grid">
+                <div class="row home">
+
+                    <!-- CITIZEN SERVICES -->
+                    <div class="col-md-3 col-sm-6" ng-if="true" ng-init="kpitheme = 'Citizen services'">
+                        <a href="/pages/citizen" class="perfkpi-kpi-section-header">
+                            <ods-theme-picto theme="Citizen"></ods-theme-picto>
+                            <h3 class="perfkpi-kpi-section-title">
+                                {{ kpitheme }}
+                            </h3>
+                        </a>
+
+                        <!-- KPI 1 - first row -->
+                        <div ods-results="lastkpi6"
+                             ods-results-context="kpi6lastevo"
+                             ods-results-max="1"
+                             ng-repeat="lastkpi6item in lastkpi6">
+                            <!-- Get last date of kpi6lastevo -->
+                            {{ lastdate_kpi6lastevo = lastkpi6item.fields.year_month ; "" }}
+                            {{ kpi6lastevo.parameters['refine.year_month'] = ((lastdate_kpi6lastevo + "-01") | date : 'yyyy/MM') ; "" }}
+
+                            <a href="/pages/citizen/#/#calls"
+                               class="perfkpi-card"
+                               ng-class="{'perfkpi-card--green perfkpi-card--check-white': rate >= goals[kpitheme]['1'].value, 'perfkpi-card--red perfkpi-card--times-white': rate < goals[kpitheme]['1'].value}"
+                               ods-aggregation="rate,calls"
+                               ods-aggregation-rate-context="kpi6lastevo"
+                               ods-aggregation-rate-function="SUM"
+                               ods-aggregation-rate-expression="answered_call_rate"
+                               ods-aggregation-calls-context="kpi6lastevo"
+                               ods-aggregation-calls-function="SUM"
+                               ods-aggregation-calls-expression="answered_call">
+                                <p>
+                                    <span class="perfkpi-bold perfkpi-white">{{ rate | number }}%</span>
+                                    {{ goals[kpitheme]['1'].title }} (<span class="perfkpi-bold perfkpi-white perfkpi-small">{{ calls | number }}</span> calls)
+                                </p>
+                                <p class="perfkpi-small perfkpi-italic">{{ (lastdate_kpi6lastevo + "-01") | date : 'MMMM yyyy' }}</p>
+                                <p class="perfkpi-small perfkpi-italic perfkpi-goal"><i class="fa fa-bullseye"
+                                                                                        aria-hidden="true"> </i> {{ goals[kpitheme]['1'].value | number }} {{ goals[kpitheme]['1'].unit }} </p>
+                                <span class="perfkpi-marker"></span>
+                            </a>
+                        </div>
+
+                        <!-- KPI 2 - second row -->
+                        <a href="/pages/citizen/#/#open"
+                           class="perfkpi-card"
+                           ng-class="{'perfkpi-card--green perfkpi-card--check-white': opendataagg >= goals[kpitheme]['2'].value, 'perfkpi-card--red perfkpi-card--times-white': opendataagg < goals[kpitheme]['2'].value}"
+                           ods-aggregation="opendataagg"
+                           ods-aggregation-context="opendata"
+                           ods-aggregation-function="COUNT"
+                           ods-aggregation-expression="title">
+                            <p>
+                                <span class="perfkpi-bold perfkpi-white">
+                                    {{ opendataagg | number }}
+                                </span>
+                                {{ goals[kpitheme]['2'].title }}
+                            </p>
+                            <p class="perfkpi-small perfkpi-italic">{{ opendata.dataset.metas.modified | date : 'MMMM yyyy' }}</p>
+                            <p class="perfkpi-small perfkpi-italic perfkpi-goal"><i class="fa fa-bullseye"
+                                                                                    aria-hidden="true"> </i> {{ goals[kpitheme]['2'].value | number }} {{ goals[kpitheme]['2'].unit }}
+                            </p>
+                            <span class="perfkpi-marker"></span>
+                        </a>
+
+                    </div>
+
+                    <!-- ENERGY -->
+                    <div class="col-md-3 col-sm-6" ng-if="true" ng-init="kpitheme = 'Energy'">
+                        <a href="/pages/energy" class="perfkpi-kpi-section-header">
+                            <ods-theme-picto theme="Energy"></ods-theme-picto>
+                            <h3 class="perfkpi-kpi-section-title">
+                                {{ kpitheme }}
+                            </h3>
+                        </a>
+
+                        <!-- Prerequisites API calls to compute evolution -->
+                        <span ods-results="kpi10solarpoweritems"
+                              ods-results-context="kpi10solarpower"
+                              ods-results-max="1"
+                              ng-repeat="current in kpi10solarpoweritems">
+
+                            <span ng-init="myvar['currentdate'] = current.fields.date + '-01'"></span>
+                            <span ng-init="myvar['currentcapacity'] = current.fields.total_installed_solar_pv_capacity_mwh"></span>
+                            <span ng-init="myvar['lastdate'] = (myvar.currentdate | momentadd : 'years' : -1)"></span>
+
+                            {{ kpi10solarpowerlast.parameters['q'] = (myvar.lastdate | moment : 'YYYY-MM-DD') ; "" }}
+
+                            <span ods-results="kpi10solarpowerlastitems"
+                                  ods-results-context="kpi10solarpowerlast"
+                                  ods-results-max="1"
+                                  ng-repeat="kpi10solarpowerlastlast in kpi10solarpowerlastitems">
+
+                                <span ng-init="myvar['lastcapacity'] = kpi10solarpowerlastlast.fields.total_installed_solar_pv_capacity_mwh"></span>
+                                <span ng-init="myvar['diff'] = 100 * (myvar.currentcapacity - myvar.lastcapacity) / myvar.lastcapacity"></span>
+                            </span>
+                        </span>
+
+                        <!-- KPI 1 - first row -->
+                        <a href="/pages/energy/#/#solar"
+                           class="perfkpi-card perfkpi-card--times-white"
+                           ng-if="myvar.currentcapacity"
+                           ng-class="{'perfkpi-card--green perfkpi-card--check-white': myvar.currentcapacity >= goals[kpitheme]['1'].value, 'perfkpi-card--red perfkpi-card--times-white': myvar.currentcapacity < goals[kpitheme]['1'].value}">
+                            <p>
+                                <span class="perfkpi-bold perfkpi-white">
+                                    <ods-spinner ng-hide="myvar.currentcapacity|isDefined"></ods-spinner>
+                                    {{ myvar.currentcapacity }}
+                                </span> {{ goals[kpitheme]['1'].title }}
+                            </p>
+                            <p class="perfkpi-small perfkpi-italic">{{ myvar.currentdate | date : 'MMMM yyyy' }}</p>
+                            <p class="perfkpi-small perfkpi-italic perfkpi-goal"><i class="fa fa-bullseye"
+                                                                                    aria-hidden="true"> </i> {{ goals[kpitheme]['1'].value | number }} {{ goals[kpitheme]['1'].unit }}
+                            </p>
+                            <span class="perfkpi-marker"></span>
+                        </a>
+
+                        <!-- KPI 2 - second row -->
+                        <a href="/pages/energy/#/#solar"
+                           class="perfkpi-card"
+                           ng-if="myvar.diff"
+                           ng-class="{'perfkpi-card--red perfkpi-card--times-white': myvar.diff < goals[kpitheme]['2'].value, 'perfkpi-card--green perfkpi-card--check-white': myvar.diff >= goals[kpitheme]['2'].value}">
+                            <p>
+                                <span class="perfkpi-bold perfkpi-white">
+                                    <ods-spinner ng-hide="myvar.diff|isDefined"></ods-spinner>
+                                    {{ myvar.diff>=0?'+':'-' }} {{ myvar.diff | number : 1 }}%</span> {{ goals[kpitheme]['2'].title }}
+                            </p>
+                            <p class="perfkpi-small perfkpi-italic">
+                                {{ myvar.currentdate | date : 'MMMM yyyy' }} compared
+                                to {{ myvar.lastdate | date : 'MMMM yyyy' }}
+                            </p>
+                            <p class="perfkpi-small perfkpi-italic perfkpi-goal"><i class="fa fa-bullseye"
+                                                                                    aria-hidden="true"> </i> {{ goals[kpitheme]['2'].value | number }} {{ goals[kpitheme]['2'].unit }}
+                            </p>
+                            <span class="perfkpi-marker"></span>
+                        </a>
+                    </div>
+
+
+                    <!-- Transport -->
+                    <div class="col-md-3 col-sm-6" ng-if="true" ng-init="kpitheme = 'Transport'">
+                        <a href="/pages/transport" class="perfkpi-kpi-section-header">
+                            <ods-theme-picto theme="Transport"></ods-theme-picto>
+                            <h3 class="perfkpi-kpi-section-title">
+                                {{ kpitheme }}
+                            </h3>
+                        </a>
+
+                        <!-- KPI 1 - first row -->
+                        <div ods-results="lastyear"
+                             ods-results-context="kpi9"
+                             ods-results-max="1"
+                             ng-repeat="lastyearitem in lastyear">
+                            <!-- Get last date of kpi9 -->
+                            {{ lastyear_kpi9 = lastyearitem.fields.date ; "" }}
+                            {{ kpi9.parameters['refine.date'] = ((lastyear_kpi9 + "-01") | date : 'yyyy') ; "" }}
+
+                            <a href="/pages/transport/#/#train-regularity"
+                               class="perfkpi-card"
+                               ng-class="{'perfkpi-card--green perfkpi-card--check-white': kpi9agg >= goals[kpitheme]['1'].value, 'perfkpi-card--red perfkpi-card--times-white': kpi9agg < goals[kpitheme]['1'].value}"
+                               ods-aggregation="kpi9agg"
+                               ods-aggregation-context="kpi9"
+                               ods-aggregation-function="AVG"
+                               ods-aggregation-expression="average_regularity">
+                                <p>
+                                    <span class="perfkpi-bold perfkpi-white">
+                                        {{ kpi9agg | number : 1 }}%
+                                    </span>
+                                    {{ goals[kpitheme]['1'].title }}
+                                </p>
+                                <p class="perfkpi-small perfkpi-italic">January to {{ (lastyear_kpi9 + "-01") | date : 'MMMM yyyy' }}</p>
+                                <p class="perfkpi-small perfkpi-italic perfkpi-goal"><i class="fa fa-bullseye"
+                                                                                        aria-hidden="true"> </i> {{ goals[kpitheme]['1'].value | number }} {{ goals[kpitheme]['1'].unit }}
+                                </p>
+                                <span class="perfkpi-marker"></span>
+                            </a>
+                        </div>
+
+                        <!-- KPI 2 - second row -->
+                        <div ods-results="lastkpi8"
+                             ods-results-context="kpi8"
+                             ods-results-max="1"
+                             ng-repeat="lastkpi8item in lastkpi8">
+                            <!-- Get last date of kpi8 -->
+                            {{ lastdate_kpi8 = lastkpi8item.fields.year_month ; "" }}
+                            {{ kpi8.parameters['refine.year_month'] = ((lastdate_kpi8 + "-01") | date : 'yyyy/MM') ; "" }}
+
+                            <a href="/pages/transport/#/#electric-car-sharing-service"
+                               class="perfkpi-card"
+                               ng-class="{'perfkpi-card--green perfkpi-card--check-white': kpi8agg >= goals[kpitheme]['2'].value, 'perfkpi-card--red perfkpi-card--times-white': kpi8agg < goals[kpitheme]['2'].value}"
+                               ods-aggregation="kpi8agg"
+                               ods-aggregation-context="kpi8"
+                               ods-aggregation-function="SUM"
+                               ods-aggregation-expression="number_of_vehicles">
+                                <p>
+                                    <span class="perfkpi-bold perfkpi-white">
+                                        {{ kpi8agg | number }}
+                                    </span>
+                                    {{ goals[kpitheme]['2'].title }}
+                                </p>
+                                <p class="perfkpi-small perfkpi-italic">{{ (lastdate_kpi8 + "-01") | date : 'MMMM yyyy' }}</p>
+                                <p class="perfkpi-small perfkpi-italic perfkpi-goal"><i class="fa fa-bullseye"
+                                                                                        aria-hidden="true"> </i> {{ goals[kpitheme]['2'].value | number }} {{ goals[kpitheme]['2'].unit }}
+                                </p>
+                                <span class="perfkpi-marker"></span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Environment -->
+                    <div class="col-md-3 col-sm-6" ng-if="true" ng-init="kpitheme = 'Environment'">
+                        <a href="/pages/environment" class="perfkpi-kpi-section-header">
+                            <ods-theme-picto theme="Environment"></ods-theme-picto>
+                            <h3 class="perfkpi-kpi-section-title">
+                                {{ kpitheme }}
+                            </h3>
+                        </a>
+
+                        <!-- KPI 1 - first row -->
+                        <div ods-facet-results="kpi1lastevoitems"
+                             ods-facet-results-context="kpi1lastevo"
+                             ods-facet-results-facet-name="year"
+                             ng-init="years = {'start':0, 'end':0}">
+                            {{ years.start = kpi1lastevoitems[0].name ;
+                                    years.end = kpi1lastevoitems[kpi1lastevoitems.length-1].name ; "" }}
+
+                            <a href="/pages/environment/#/#green-areas"
+                               class="perfkpi-card"
+                               ng-if="kpi1lastevoitems"
+                               ng-class="{'perfkpi-card--green perfkpi-card--check-white': kpi1lastevoagg >= goals[kpitheme]['1'].value, 'perfkpi-card--red perfkpi-card--times-white': kpi1lastevoagg < goals[kpitheme]['1'].value}"
+                               ods-aggregation="kpi1lastevoagg"
+                               ods-aggregation-context="kpi1lastevo"
+                               ods-aggregation-function="SUM"
+                               ods-aggregation-expression="new_green_areas_ha">
+                                <p>
+                                    <span class="perfkpi-bold perfkpi-white">
+                                        {{ kpi1lastevoagg | number:1 }}
+                                    </span>
+                                    {{ goals[kpitheme]['1'].title }}
+                                </p>
+                                <p class="perfkpi-italic perfkpi-small">{{ years.start }} to {{ years.end }}</p>
+                                <p class="perfkpi-small perfkpi-italic perfkpi-goal"><i class="fa fa-bullseye"
+                                                                                        aria-hidden="true"> </i> {{ goals[kpitheme]['1'].value | number }} {{ goals[kpitheme]['1'].unit }}</p>
+                                <span class="perfkpi-marker"></span>
+                            </a>
+                        </div>
+
+                        <!-- KPI 2 - second row -->
+                        <div ods-results="lastkpi2"
+                             ods-results-context="kpi2lastevo"
+                             ods-results-max="1"
+                             ng-repeat="lastkpi2item in lastkpi2">
+                            <!-- Get last date of kpi2lastevo -->
+                            {{ lastdate_kpi2 = lastkpi2item.fields.year_month ; "" }}
+                            {{ kpi2lastevo.parameters['refine.year_month'] = ((lastdate_kpi2 + "-01") | date : 'yyyy/MM') ; "" }}
+
+                            <a href="/pages/environment/#/#waste-recycled"
+                               class="perfkpi-card"
+                               ng-class="{'perfkpi-card--green perfkpi-card--check-white': kpi2lastevoagg >= goals[kpitheme]['2'].value, 'perfkpi-card--red perfkpi-card--times-white': kpi2lastevoagg < goals[kpitheme]['2'].value}"
+                               ods-aggregation="kpi2lastevoagg"
+                               ods-aggregation-context="kpi2lastevo"
+                               ods-aggregation-function="AVG"
+                               ods-aggregation-expression="recycling_rate">
+                                <p>
+                                    <span class="perfkpi-bold perfkpi-white">
+                                        {{ kpi2lastevoagg | number:1 }}%
+                                    </span>
+                                    {{ goals[kpitheme]['2'].title }}
+                                </p>
+                                <p class="perfkpi-small perfkpi-italic">{{ (lastdate_kpi2 + "-01") | date : 'MMMM yyyy' }}</p>
+                                <p class="perfkpi-small perfkpi-italic perfkpi-goal"><i class="fa fa-bullseye"
+                                                                                        aria-hidden="true"> </i> {{ goals[kpitheme]['2'].value | number }} {{ goals[kpitheme]['2'].unit }}</p>
+                                <span class="perfkpi-marker"></span>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="perfkpi-page-aside">
+                <div class="perfkpi-page-aside-title">
+                    <i class="fa fa-fw fa-info" aria-hidden="true"></i> How to read these KPIs
+                </div>
+                <div class="perfkpi-page-aside-content">
+                    The colors and markers (<i class="fa fa-check"></i>, <i class="fa fa-times"></i>) indicate whether
+                    the KPI goals were reached or not.<br/>
+                    Click on the KPIs for more details.
+                </div>
+            </div>
+        </ods-dataset-context>
+    </div>
+</div>

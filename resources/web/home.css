@@ -1,0 +1,121 @@
+@keyframes bluring {
+    0% { filter: blur(15px); }
+    100% { filter: blur(0px); }
+}
+
+.perfkpi-page {
+    animation: bluring 1s;
+}
+
+.perfkpi-page__header {
+    background-image: linear-gradient(to bottom, transparent, white), url(/assets/theme_image/ville_bg.jpg);
+    margin-bottom: -150px;
+}
+
+/*#tagline {
+    margin-bottom: 20px;
+}
+#tagline h2 {
+    color: #014a6d;
+    font-weight: 400;
+    font-style: italic;
+}
+#tagline_firstline {
+    font-size: 2em;
+}
+#tagline_firstline a {
+    text-decoration: underline;
+}
+#tagline_firstline a:hover {
+    font-weight: 600;
+}
+#tagline_secondline {
+    margin: 0px 50px;
+}
+#tagline_secondline a {
+    text-decoration: underline;
+}
+#tagline_secondline a:hover {
+    font-weight: 600;
+}*/
+.perfkpi-kpi-section {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    flex-basis: 0;
+    padding: 0;
+    margin: 40px 10px;
+    align-items: center;
+}
+
+.perfkpi-kpi-section-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    margin-bottom: 40px;
+    min-height: 85px;
+    flex-grow: 0 !important
+    margin-top: 20px;
+}
+
+.perfkpi-kpi-section-header .odswidget-theme-picto {
+    width: 7.5rem;
+}
+
+.perfkpi-kpi-section-title {
+    margin: 0;
+    font-weight: 300;
+    font-size: 1.7em;
+}
+
+.perfkpi-card--red,
+.perfkpi-card--green {
+    padding-bottom: 40px;
+}
+
+.home .perfkpi-card {
+    height: 185px;
+    margin-bottom: 20px;
+}
+@media (max-width: 767px) {
+    .home .perfkpi-card {
+        margin: 20px;
+    }
+}
+
+.perfkpi-goal {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    margin-bottom: 0;
+}
+
+@media screen and (max-width: 767px) {
+    .perfkpi-mayor-img {
+        display: block;
+        max-width: 100%;
+    }
+    .perfkpi-mayor-quote {
+        margin-top: 20px;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .perfkpi-mayor-img {
+        width: 300px;
+        float: left;
+        margin-top: 20px;
+    }
+
+    .perfkpi-mayor-name,
+    .perfkpi-mayor-quote {
+        margin-left: 340px;
+
+    }
+}
+
+.perfkpi-mayor-name {
+    font-size: 1rem;
+    font-style: italic;
+}

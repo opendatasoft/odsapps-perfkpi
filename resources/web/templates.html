@@ -1,0 +1,503 @@
+<div class="perfkpi-page">
+
+    <div class="perfkpi-page__header"
+         style="background-image: url('/assets/theme_image/worker_bg.jpg')">
+        <div class="container">
+            <h1 class="perfkpi-page__title">KPI templates</h1>
+        </div>
+    </div>
+
+    <!-- Template 2 - 1 -->
+    <div class="container">
+
+        <div class="perfkpi-page__subtitle-wrapper">
+            <h2 class="perfkpi-page__subtitle" id="electric-car-sharing-service">
+                Template 2 - 1
+            </h2>
+            <div class="perfkpi-page-aside perfkpi-page-aside--inline">
+                <div class="perfkpi-page-aside-title">
+                    <i class="fa fa-bullseye" aria-hidden="true"></i> Goal
+                </div>
+                <div class="perfkpi-page-aside-content">
+                    {{ 123456 | number }} Things
+                </div>
+            </div>
+        </div>
+
+        <div class="perfkpi-page-row">
+            <div class="col-sm-5 perfkpi-page-col">
+                <div class="perfkpi-card"
+                     ng-init="metric = 123456"
+                     ng-class="{'perfkpi-card--check-green': metric >= goal, 'perfkpi-card--times-red': metric < goal}">
+                    <h3>
+                        Metric placeholder
+                    </h3>
+                    <p>
+                        <span class="perfkpi-big perfkpi-bold"
+                              ng-class="{'perfkpi-green': metric >= goal, 'perfkpi-red': metric < goal}">
+                            <ods-spinner ng-hide="metric | isDefined"></ods-spinner>
+                            {{ metric | number : 0 }}
+                        </span>
+                    </p>
+
+                    <p class="perfkpi-small perfkpi-italic"> Month Year</p>
+                </div>
+                <div class="perfkpi-card"
+                     ng-init="metric = 123456"
+                     ng-class="{'perfkpi-card--check-green': metric >= goal, 'perfkpi-card--times-red': metric < goal}">
+                    <h3>
+                        Metric placeholder
+                    </h3>
+                    <p>
+                        <span class="perfkpi-big perfkpi-bold"
+                              ng-class="{'perfkpi-green': metric >= goal, 'perfkpi-red': metric < goal}">
+                            <ods-spinner ng-hide="metric | isDefined"></ods-spinner>
+                            {{ metric | number : 0 }}
+                        </span>
+                    </p>
+
+                    <p class="perfkpi-small perfkpi-italic"> Month Year</p>
+                </div>
+            </div>
+
+            <div class="col-sm-7 perfkpi-page-col">
+                <div class="perfkpi-card">
+                    <h3>
+                        Chart placeholder (replace existing chart here)
+                    </h3>
+                    <ods-dataset-context context="kpigeneric"
+                                         kpigeneric-dataset="kpi-generic">
+                        <ods-chart timescale="month" single-y-axis="true">
+                            <ods-chart-query context="kpigeneric" field-x="date"
+                                             series-breakdown="category" maxpoints="0"
+                                             timescale="month">
+                                <ods-chart-serie expression-y="value" chart-type="areaspline" function-y="AVG" label-y="Charging slots" color="range-custom" display-values="true" scientific-display="true">
+                                </ods-chart-serie>
+                            </ods-chart-query>
+                        </ods-chart>
+                    </ods-dataset-context>
+
+                    <div class="perfkpi-small perfkpi-italic perfkpi-space-between">
+                        <span>Date range</span>
+                        <a href="/explore/dataset/kpi-generic"><i class="fa fa-table" aria-hidden="true"></i> See source data</a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Template 2 - 2 -->
+    <div class="container">
+
+        <div class="perfkpi-page__subtitle-wrapper">
+            <h2 class="perfkpi-page__subtitle" id="electric-car-sharing-service">
+                Template 2 - 2
+            </h2>
+            <div class="perfkpi-page-aside perfkpi-page-aside--inline">
+                <div class="perfkpi-page-aside-title">
+                    <i class="fa fa-bullseye" aria-hidden="true"></i> Goal
+                </div>
+                <div class="perfkpi-page-aside-content">
+                    {{ 123456 | number }} Things
+                </div>
+            </div>
+        </div>
+
+        <div class="perfkpi-page-row">
+            <div class="col-sm-6 perfkpi-page-col">
+                <div class="perfkpi-card"
+                     ng-init="metric = 123456"
+                     ng-class="{'perfkpi-card--check-green': metric >= goal, 'perfkpi-card--times-red': metric < goal}">
+                    <h3>
+                        Metric placeholder
+                    </h3>
+                    <p>
+                        <span class="perfkpi-big perfkpi-bold"
+                              ng-class="{'perfkpi-green': metric >= goal, 'perfkpi-red': metric < goal}">
+                            <ods-spinner ng-hide="metric | isDefined"></ods-spinner>
+                            {{ metric | number : 0 }}
+                        </span>
+                    </p>
+
+                    <p class="perfkpi-small perfkpi-italic"> Month Year</p>
+                </div>
+                <div class="perfkpi-card"
+                     ng-init="metric = 123456"
+                     ng-class="{'perfkpi-card--check-green': metric >= goal, 'perfkpi-card--times-red': metric < goal}">
+                    <h3>
+                        Metric placeholder
+                    </h3>
+                    <p>
+                        <span class="perfkpi-big perfkpi-bold"
+                              ng-class="{'perfkpi-green': metric >= goal, 'perfkpi-red': metric < goal}">
+                            <ods-spinner ng-hide="metric | isDefined"></ods-spinner>
+                            {{ metric | number : 0 }}
+                        </span>
+                    </p>
+
+                    <p class="perfkpi-small perfkpi-italic"> Month Year</p>
+                </div>
+            </div>
+
+            <div class="col-sm-6 perfkpi-page-col">
+                <div class="perfkpi-card"
+                     ng-init="metric = 123456"
+                     ng-class="{'perfkpi-card--check-green': metric >= goal, 'perfkpi-card--times-red': metric < goal}">
+                    <h3>
+                        Metric placeholder
+                    </h3>
+                    <p>
+                        <span class="perfkpi-big perfkpi-bold"
+                              ng-class="{'perfkpi-green': metric >= goal, 'perfkpi-red': metric < goal}">
+                            <ods-spinner ng-hide="metric | isDefined"></ods-spinner>
+                            {{ metric | number : 0 }}
+                        </span>
+                    </p>
+
+                    <p class="perfkpi-small perfkpi-italic"> Month Year</p>
+                </div>
+                <div class="perfkpi-card"
+                     ng-init="metric = 123456"
+                     ng-class="{'perfkpi-card--check-green': metric >= goal, 'perfkpi-card--times-red': metric < goal}">
+                    <h3>
+                        Metric placeholder
+                    </h3>
+                    <p>
+                        <span class="perfkpi-big perfkpi-bold"
+                              ng-class="{'perfkpi-green': metric >= goal, 'perfkpi-red': metric < goal}">
+                            <ods-spinner ng-hide="metric | isDefined"></ods-spinner>
+                            {{ metric | number : 0 }}
+                        </span>
+                    </p>
+
+                    <p class="perfkpi-small perfkpi-italic"> Month Year</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Template 1 - 2 -->
+    <div class="container">
+
+        <div class="perfkpi-page__subtitle-wrapper">
+            <h2 class="perfkpi-page__subtitle" id="electric-car-sharing-service">
+                Template 1 - 2
+            </h2>
+            <div class="perfkpi-page-aside perfkpi-page-aside--inline">
+                <div class="perfkpi-page-aside-title">
+                    <i class="fa fa-bullseye" aria-hidden="true"></i> Goal
+                </div>
+                <div class="perfkpi-page-aside-content">
+                    {{ 123456 | number }} Things
+                </div>
+            </div>
+        </div>
+
+        <div class="perfkpi-page-row">
+            <div class="col-sm-7 perfkpi-page-col">
+                <div class="perfkpi-card">
+                    <h3>
+                        Chart placeholder (replace existing chart here)
+                    </h3>
+                    <ods-dataset-context context="kpigeneric"
+                                         kpigeneric-dataset="kpi-generic">
+                        <ods-chart timescale="month" single-y-axis="true">
+                            <ods-chart-query context="kpigeneric" field-x="date"
+                                             series-breakdown="category" maxpoints="0"
+                                             timescale="month">
+                                <ods-chart-serie expression-y="value" chart-type="areaspline" function-y="AVG" label-y="Charging slots" color="range-custom" display-values="true" scientific-display="true">
+                                </ods-chart-serie>
+                            </ods-chart-query>
+                        </ods-chart>
+                    </ods-dataset-context>
+
+                    <div class="perfkpi-small perfkpi-italic perfkpi-space-between">
+                        <span>Date range</span>
+                        <a href="/explore/dataset/kpi-generic"><i class="fa fa-table" aria-hidden="true"></i> See source data</a>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-5 perfkpi-page-col">
+                <div class="perfkpi-card"
+                     ng-init="metric = 123456"
+                     ng-class="{'perfkpi-card--check-green': metric >= goal, 'perfkpi-card--times-red': metric < goal}">
+                    <h3>
+                        Metric placeholder
+                    </h3>
+                    <p>
+                        <span class="perfkpi-big perfkpi-bold"
+                              ng-class="{'perfkpi-green': metric >= goal, 'perfkpi-red': metric < goal}">
+                            <ods-spinner ng-hide="metric | isDefined"></ods-spinner>
+                            {{ metric | number : 0 }}
+                        </span>
+                    </p>
+
+                    <p class="perfkpi-small perfkpi-italic"> Month Year</p>
+                </div>
+                <div class="perfkpi-card"
+                     ng-init="metric = 123456"
+                     ng-class="{'perfkpi-card--check-green': metric >= goal, 'perfkpi-card--times-red': metric < goal}">
+                    <h3>
+                        Metric placeholder
+                    </h3>
+                    <p>
+                        <span class="perfkpi-big perfkpi-bold"
+                              ng-class="{'perfkpi-green': metric >= goal, 'perfkpi-red': metric < goal}">
+                            <ods-spinner ng-hide="metric | isDefined"></ods-spinner>
+                            {{ metric | number : 0 }}
+                        </span>
+                    </p>
+
+                    <p class="perfkpi-small perfkpi-italic"> Month Year</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Template 1 - 1 -->
+    <div class="container">
+
+        <div class="perfkpi-page__subtitle-wrapper">
+            <h2 class="perfkpi-page__subtitle" id="electric-car-sharing-service">
+                Template 1 - 1
+            </h2>
+            <div class="perfkpi-page-aside perfkpi-page-aside--inline">
+                <div class="perfkpi-page-aside-title">
+                    <i class="fa fa-bullseye" aria-hidden="true"></i> Goal
+                </div>
+                <div class="perfkpi-page-aside-content">
+                    {{ 123456 | number }} Things
+                </div>
+            </div>
+        </div>
+
+        <div class="perfkpi-page-row">
+            <div class="col-sm-6 perfkpi-page-col">
+                <div class="perfkpi-card">
+                    <h3>
+                        Chart placeholder (replace existing chart here)
+                    </h3>
+                    <ods-dataset-context context="kpigeneric"
+                                         kpigeneric-dataset="kpi-generic">
+                        <ods-chart timescale="month" single-y-axis="true">
+                            <ods-chart-query context="kpigeneric" field-x="date"
+                                             series-breakdown="category" maxpoints="0"
+                                             timescale="month">
+                                <ods-chart-serie expression-y="value" chart-type="areaspline" function-y="AVG" label-y="Charging slots" color="range-custom" display-values="true" scientific-display="true">
+                                </ods-chart-serie>
+                            </ods-chart-query>
+                        </ods-chart>
+                    </ods-dataset-context>
+
+                    <div class="perfkpi-small perfkpi-italic perfkpi-space-between">
+                        <span>Date range</span>
+                        <a href="/explore/dataset/kpi-generic"><i class="fa fa-table" aria-hidden="true"></i> See source data</a>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-6 perfkpi-page-col">
+                <div class="perfkpi-card">
+                    <h3>
+                        Chart placeholder (replace existing chart here)
+                    </h3>
+                    <ods-dataset-context context="kpigeneric"
+                                         kpigeneric-dataset="kpi-generic">
+                        <ods-chart timescale="month" single-y-axis="true">
+                            <ods-chart-query context="kpigeneric" field-x="date"
+                                             series-breakdown="category" maxpoints="0"
+                                             timescale="month">
+                                <ods-chart-serie expression-y="value" chart-type="areaspline" function-y="AVG" label-y="Charging slots" color="range-custom" display-values="true" scientific-display="true">
+                                </ods-chart-serie>
+                            </ods-chart-query>
+                        </ods-chart>
+                    </ods-dataset-context>
+
+                    <div class="perfkpi-small perfkpi-italic perfkpi-space-between">
+                        <span>Date range</span>
+                        <a href="/explore/dataset/kpi-generic"><i class="fa fa-table" aria-hidden="true"></i> See source data</a>
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+    <!-- Template 2 - 2 - 2 -->
+    <div class="container">
+
+        <div class="perfkpi-page__subtitle-wrapper">
+            <h2 class="perfkpi-page__subtitle" id="electric-car-sharing-service">
+                Template 2 - 2 - 2
+            </h2>
+            <div class="perfkpi-page-aside perfkpi-page-aside--inline">
+                <div class="perfkpi-page-aside-title">
+                    <i class="fa fa-bullseye" aria-hidden="true"></i> Goal
+                </div>
+                <div class="perfkpi-page-aside-content">
+                    {{ 123456 | number }} Things
+                </div>
+            </div>
+        </div>
+
+        <div class="perfkpi-page-row">
+            <div class="col-sm-4 perfkpi-page-col">
+                <div class="perfkpi-card"
+                     ng-init="metric = 123456"
+                     ng-class="{'perfkpi-card--check-green': metric >= goal, 'perfkpi-card--times-red': metric < goal}">
+                    <h3>
+                        Metric placeholder
+                    </h3>
+                    <p>
+                        <span class="perfkpi-big perfkpi-bold"
+                              ng-class="{'perfkpi-green': metric >= goal, 'perfkpi-red': metric < goal}">
+                            <ods-spinner ng-hide="metric | isDefined"></ods-spinner>
+                            {{ metric | number : 0 }}
+                        </span>
+                    </p>
+
+                    <p class="perfkpi-small perfkpi-italic"> Month Year</p>
+                </div>
+                <div class="perfkpi-card"
+                     ng-init="metric = 123456"
+                     ng-class="{'perfkpi-card--check-green': metric >= goal, 'perfkpi-card--times-red': metric < goal}">
+                    <h3>
+                        Metric placeholder
+                    </h3>
+                    <p>
+                        <span class="perfkpi-big perfkpi-bold"
+                              ng-class="{'perfkpi-green': metric >= goal, 'perfkpi-red': metric < goal}">
+                            <ods-spinner ng-hide="metric | isDefined"></ods-spinner>
+                            {{ metric | number : 0 }}
+                        </span>
+                    </p>
+
+                    <p class="perfkpi-small perfkpi-italic"> Month Year</p>
+                </div>
+            </div>
+
+            <div class="col-sm-4 perfkpi-page-col">
+                <div class="perfkpi-card"
+                     ng-init="metric = 123456"
+                     ng-class="{'perfkpi-card--check-green': metric >= goal, 'perfkpi-card--times-red': metric < goal}">
+                    <h3>
+                        Metric placeholder
+                    </h3>
+                    <p>
+                        <span class="perfkpi-big perfkpi-bold"
+                              ng-class="{'perfkpi-green': metric >= goal, 'perfkpi-red': metric < goal}">
+                            <ods-spinner ng-hide="metric | isDefined"></ods-spinner>
+                            {{ metric | number : 0 }}
+                        </span>
+                    </p>
+
+                    <p class="perfkpi-small perfkpi-italic"> Month Year</p>
+                </div>
+                <div class="perfkpi-card"
+                     ng-init="metric = 123456"
+                     ng-class="{'perfkpi-card--check-green': metric >= goal, 'perfkpi-card--times-red': metric < goal}">
+                    <h3>
+                        Metric placeholder
+                    </h3>
+                    <p>
+                        <span class="perfkpi-big perfkpi-bold"
+                              ng-class="{'perfkpi-green': metric >= goal, 'perfkpi-red': metric < goal}">
+                            <ods-spinner ng-hide="metric | isDefined"></ods-spinner>
+                            {{ metric | number : 0 }}
+                        </span>
+                    </p>
+
+                    <p class="perfkpi-small perfkpi-italic"> Month Year</p>
+                </div>
+            </div>
+
+            <div class="col-sm-4 perfkpi-page-col">
+                <div class="perfkpi-card"
+                     ng-init="metric = 123456"
+                     ng-class="{'perfkpi-card--check-green': metric >= goal, 'perfkpi-card--times-red': metric < goal}">
+                    <h3>
+                        Metric placeholder
+                    </h3>
+                    <p>
+                        <span class="perfkpi-big perfkpi-bold"
+                              ng-class="{'perfkpi-green': metric >= goal, 'perfkpi-red': metric < goal}">
+                            <ods-spinner ng-hide="metric | isDefined"></ods-spinner>
+                            {{ metric | number : 0 }}
+                        </span>
+                    </p>
+
+                    <p class="perfkpi-small perfkpi-italic"> Month Year</p>
+                </div>
+                <div class="perfkpi-card"
+                     ng-init="metric = 123456"
+                     ng-class="{'perfkpi-card--check-green': metric >= goal, 'perfkpi-card--times-red': metric < goal}">
+                    <h3>
+                        Metric placeholder
+                    </h3>
+                    <p>
+                        <span class="perfkpi-big perfkpi-bold"
+                              ng-class="{'perfkpi-green': metric >= goal, 'perfkpi-red': metric < goal}">
+                            <ods-spinner ng-hide="metric | isDefined"></ods-spinner>
+                            {{ metric | number : 0 }}
+                        </span>
+                    </p>
+
+                    <p class="perfkpi-small perfkpi-italic"> Month Year</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Template 1 -->
+    <div class="container">
+
+        <div class="perfkpi-page__subtitle-wrapper">
+            <h2 class="perfkpi-page__subtitle" id="electric-car-sharing-service">
+                Template 1 - 1
+            </h2>
+            <div class="perfkpi-page-aside perfkpi-page-aside--inline">
+                <div class="perfkpi-page-aside-title">
+                    <i class="fa fa-bullseye" aria-hidden="true"></i> Goal
+                </div>
+                <div class="perfkpi-page-aside-content">
+                    {{ 123456 | number }} Things
+                </div>
+            </div>
+        </div>
+
+        <div class="perfkpi-page-row">
+            <div class="col-sm-12 perfkpi-page-col">
+                <div class="perfkpi-card">
+                    <h3>
+                        Chart placeholder (replace existing chart here)
+                    </h3>
+                    <ods-dataset-context context="kpigeneric"
+                                         kpigeneric-dataset="kpi-generic">
+                        <ods-chart timescale="month" single-y-axis="true">
+                            <ods-chart-query context="kpigeneric" field-x="date"
+                                             series-breakdown="category" maxpoints="0"
+                                             timescale="month">
+                                <ods-chart-serie expression-y="value" chart-type="areaspline" function-y="AVG" label-y="Charging slots" color="range-custom" display-values="true" scientific-display="true">
+                                </ods-chart-serie>
+                            </ods-chart-query>
+                        </ods-chart>
+                    </ods-dataset-context>
+
+                    <div class="perfkpi-small perfkpi-italic perfkpi-space-between">
+                        <span>Date range</span>
+                        <a href="/explore/dataset/kpi-generic"><i class="fa fa-table" aria-hidden="true"></i> See source data</a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

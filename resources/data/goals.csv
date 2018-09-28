@@ -1,0 +1,9 @@
+Title;Theme;ID;Goal;Unit
+of calls answered w/in 1 min;Citizen services;1;85;%
+open datasets;Citizen services;2;1500;datasets
+MWh produced by solar PV;Energy;1;50;
+solar PV production;Energy;2;10;%
+trains on time;Transport;1;90;%
+shared electric cars;Transport;2;3000;
+hectares of new green spaces;Environment;1;3;
+of waste recycled;Environment;2;17;%
