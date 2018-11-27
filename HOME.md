@@ -1,4 +1,4 @@
-ODS+ PerfKPI - Home page guide
+ODS Apps PerfKPI - Home page guide
 =======
 
 PerfKPI Home page contains four themes / strategies. 

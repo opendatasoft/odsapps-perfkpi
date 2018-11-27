@@ -1,4 +1,4 @@
-ODS+ PerfKPI Dashboard
+ODS Apps PerfKPI Dashboard
 =======
 
 Welcome to the PerfKPI dashboard replication guide. 
@@ -35,6 +35,11 @@ You can simply download the assets, portal header and stylesheet, and apply them
 * [PerfKPI Home page (CSS)](./resources/web/home.css)
 * [PerfKPI Generic page](./resources/web/generic.html)
 
+**NB**: Pages relies on the portal stylesheet, getting the pages code without the portal stylesheet linked above will lead to wrong displays.  
+If you want to use PerfKPI pages only, without the global stylesheet, please use this page CSS stylesheet that is a subset of the portal one.
+
+* [PerfKPI Standalone page (CSS)](./resources/web/standalone-page.css)
+
 The PerfKPI Dashboard pages contains links to the different pages, you'll probably need to change the URL and references to adapt your page to your use case.
 
 ### Assets
@@ -61,10 +66,15 @@ You can also use ours!
 
 The generic page is designed to work with the data schema described below. Another schema will require modifications to the page code. 
 If the column names are not the same, simply search and replace the identifier of the column in the page.
-If the data is more complex, or the datavisualization is more advanced, you can also replace the charts by removing the default one and pasting the code of your own visualization. 
+If the data is more complex, or the datavisualization is more advanced, you can also replace the charts by removing the default one and pasting the code of your own visualization.  
+Dataset ID must be `kpi-generic` 
 
 * [Generic data example](./resources/data/generic.csv)
 
+The KPI goals are also dynamic. They rely on a a kpi-goals dataset. It can be bootstrapped using this default one (and therefore get the appropriate schema)  
+Dataset ID must be `kpi-goals`
+
+* [Generic KPI goals example](./resources/data/goals.csv)
 
 #### Data Schema :
 
