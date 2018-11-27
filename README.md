@@ -17,4 +17,6 @@ On this cookbook you'll find:
 
 * [PerfKPI Dashboard](https://perfkpi-odsplus.opendatasoft.com/)
 * [Generic KPI](https://perfkpi-odsplus.opendatasoft.com/pages/generic/)
+* [KPI Templates](https://perfkpi-odsplus.opendatasoft.com/pages/template/)
 * [Generic data source](https://perfkpi-odsplus.opendatasoft.com/explore/dataset/kpi-generic/table/)
+* [Goals data source](https://perfkpi-odsplus.opendatasoft.com/explore/dataset/kpi-generic/table/)
